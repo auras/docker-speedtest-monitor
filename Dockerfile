@@ -6,7 +6,9 @@ RUN git clone https://github.com/frdmn/google-speedtest-chart.git /google-speedt
 
 RUN pip3 install -r /google-speedtest-chart/requirements.txt
 
-COPY docker-entrypoint.sh /usr/local/bin/
+ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 #CMD ["/google-speedtest-char/speedtest-charts.py"]
