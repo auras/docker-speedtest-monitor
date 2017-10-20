@@ -15,4 +15,4 @@ RUN pip3 install -r requirements.txt
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["/google-speedtest-char/speedtest-charts.py"]
+#CMD ["/google-speedtest-char/speedtest-charts.py"]
