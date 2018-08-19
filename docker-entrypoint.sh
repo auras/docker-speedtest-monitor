@@ -5,4 +5,8 @@ if [ "${1:0:1}" = '-' ]; then
   set -- /google-speedtest-char/speedtest-charts.py "$@"
 fi
 
-exec "$@"
+while true
+do
+  exec "$@"
+  sleep $TEST_INTERVAL
+done
