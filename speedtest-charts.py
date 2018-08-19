@@ -46,7 +46,7 @@ def main():
         print("Writing to spreadsheet...")
         submit_into_spreadsheet(download, upload, ping)
         print("Successfuly written to spreadsheet!")
-        thread.sleep(int(os.environ['TEST_INTERVAL']))
+        time.sleep(int(os.environ['TEST_INTERVAL']))
 
 if __name__ == "__main__":
     main()
