@@ -6,6 +6,7 @@ import re
 import datetime
 import pygsheets
 import speedtest
+import time
 
 # Set constants
 DATE = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
@@ -27,23 +28,25 @@ def submit_into_spreadsheet(download, upload, ping):
     sheet.append_table(values=data)
 
 def main():
-    # Check for proper credentials
-    print("Checking OAuth validity...")
-    credentials = get_credentials()
+    while True:
+        # Check for proper credentials
+        print("Checking OAuth validity...")
+        credentials = get_credentials()
 
-    # Run speedtest and store output
-    print("Starting speed test...")
-    spdtest = speedtest.Speedtest()
-    spdtest.get_best_server()
-    download = spdtest.download()
-    upload = spdtest.upload()
-    ping = spdtest.results.ping
-    print("Starting speed finished!")
+        # Run speedtest and store output
+        print("Starting speed test...")
+        spdtest = speedtest.Speedtest()
+        spdtest.get_best_server()
+        download = spdtest.download()
+        upload = spdtest.upload()
+        ping = spdtest.results.ping
+        print("Starting speed finished!")
 
-    # Write to spreadsheet
-    print("Writing to spreadsheet...")
-    submit_into_spreadsheet(download, upload, ping)
-    print("Successfuly written to spreadsheet!")
+        # Write to spreadsheet
+        print("Writing to spreadsheet...")
+        submit_into_spreadsheet(download, upload, ping)
+        print("Successfuly written to spreadsheet!")
+        thread.sleep(int(os.environ['TEST_INTERVAL']))
 
 if __name__ == "__main__":
     main()
