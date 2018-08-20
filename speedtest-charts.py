@@ -8,9 +8,6 @@ import pygsheets
 import speedtest
 import time
 
-# Set constants
-DATE = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
-
 def get_credentials():
     """Function to check for valid OAuth access tokens."""
     gc = pygsheets.authorize(service_file="/run/secrets/credentials.json")
@@ -22,8 +19,8 @@ def submit_into_spreadsheet(download, upload, ping):
 
     speedtest = gc.open(os.getenv('SPREADSHEET', 'Speedtest'))
     sheet = speedtest.sheet1
-
-    data = [DATE, download, upload, ping]
+    current_date = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
+    data = [current_date, download, upload, ping]
 
     sheet.append_table(values=data)
 
