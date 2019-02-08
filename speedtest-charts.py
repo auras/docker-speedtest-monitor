@@ -6,7 +6,6 @@ import re
 import datetime
 import pygsheets
 import speedtest
-import time
 
 def get_credentials():
     """Function to check for valid OAuth access tokens."""
@@ -25,25 +24,23 @@ def submit_into_spreadsheet(download, upload, ping):
     sheet.append_table(values=data)
 
 def main():
-    while True:
-        # Check for proper credentials
-        print("Checking OAuth validity...")
-        credentials = get_credentials()
+    # Check for proper credentials
+    print("Checking OAuth validity...")
+    credentials = get_credentials()
 
-        # Run speedtest and store output
-        print("Starting speed test...")
-        spdtest = speedtest.Speedtest()
-        spdtest.get_best_server()
-        download = spdtest.download()
-        upload = spdtest.upload()
-        ping = spdtest.results.ping
-        print("Starting speed finished!")
+    # Run speedtest and store output
+    print("Starting speed test...")
+    spdtest = speedtest.Speedtest()
+    spdtest.get_best_server()
+    download = spdtest.download()
+    upload = spdtest.upload()
+    ping = spdtest.results.ping
+    print("Starting speed finished!")
 
-        # Write to spreadsheet
-        print("Writing to spreadsheet...")
-        submit_into_spreadsheet(download, upload, ping)
-        print("Successfuly written to spreadsheet!")
-        time.sleep(int(os.environ['TEST_INTERVAL']))
+    # Write to spreadsheet
+    print("Writing to spreadsheet...")
+    submit_into_spreadsheet(download, upload, ping)
+    print("Successfuly written to spreadsheet!")
 
 if __name__ == "__main__":
     main()
